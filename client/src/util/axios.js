@@ -2,7 +2,7 @@ import axios from 'axios';
 import { isAutheticated } from '../Auth/Auth';
 
 export const http =  axios.create({
-    baseURL: 'http://localhost:4000',
+    baseURL: process.env.REACT_APP_SERVER,
 });
 
 http.interceptors.request.use((config) => {
