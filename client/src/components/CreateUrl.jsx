@@ -1,15 +1,9 @@
-import { useState } from "react"
 import { http } from '../util/axios';
 import { useHistory } from 'react-router-dom';
 import LinkForm from "./LinkForm";
 
-const CreateUrl = () => {
-    const [isCreateUrlClicked, setIsCreateUrlClicked] = useState(false);
+const CreateUrl = ({ isCreateUrlClicked, setIsCreateUrlClicked }) => {
     const history = useHistory();
-
-    const onCreateUrlClicked = () => {
-        setIsCreateUrlClicked(true);
-    }
 
     const onCreateLink = async (title, url, short, description) => {
         const response = await http.post(`/su`, {
@@ -21,17 +15,11 @@ const CreateUrl = () => {
 
     return (
         <div className="flex flex-col items-center">
-            {!isCreateUrlClicked ? (
-                <button 
-                    className="btn"
-                    onClick={(e) => onCreateUrlClicked(e)}
-                >
-                    Create New Short URL
-                </button>
-            ) : (
+            {isCreateUrlClicked && (
                 <LinkForm
                     submitButtonText="Create" 
                     onSubmit={onCreateLink}
+                    onCancel={setIsCreateUrlClicked}
                 />               
             )}
         </div>

@@ -51,19 +51,19 @@ const LinkPreview = ({link}) => {
                             <div className="break-all text-gray-500">{linkData.description}</div>
                             <div className="text-sm mt-4 flex sm:items-center flex-col sm:flex-row">
                                 <a 
-                                    href={`${process.env.REACT_APP_SERVER}/${linkData.short}`} 
+                                    href={`${process.env.REACT_APP_CLIENT}/${linkData.short}`}
                                     className="text-blue-500 cursor-pointer pr-4 sm:border-r"
                                     target="_blank"
                                 >
-                                    {`${process.env.REACT_APP_SERVER.split('//')[1]}/${linkData.short}`}
+                                    {`${process.env.REACT_APP_CLIENT.split('//')[1]}/${linkData.short}`}
                                 </a>
                                 <div className="flex">                                    
                                     <img 
-                                        className="h-8 ml-2 p-2 hover:bg-gray-200 rounded-md cursor-pointer"
+                                        className="h-8 sm:ml-2 p-2 hover:bg-blue-100 rounded-md cursor-pointer"
                                         src="assets/pen.svg"
                                         onClick={(e) => setIsContentEditable(true)}
                                     />
-                                    <div className="hover:bg-gray-200 cursor-pointer rounded-md h-8 ml-2 flex items-center">
+                                    <div className="hover:bg-blue-100 cursor-pointer rounded-md h-8 ml-2 flex items-center">
                                         { isLinkCopied
                                             ? <img 
                                                 className="h-8 p-2 cursor-pointer" 
@@ -73,7 +73,7 @@ const LinkPreview = ({link}) => {
                                                 <img 
                                                     className="h-8 p-2 cursor-pointer" 
                                                     src="assets/copy.svg" 
-                                                    onClick={(e) => copyUrlToCliboard(`${process.env.REACT_APP_SERVER}/${linkData.short}`)} 
+                                                    onClick={(e) => copyUrlToCliboard(`${process.env.REACT_APP_CLIENT}/${linkData.short}`)}
                                                 /> 
                                             )                                
                                         }
@@ -81,7 +81,7 @@ const LinkPreview = ({link}) => {
                                     <Popup 
                                         trigger={
                                             <img 
-                                                className="h-8 ml-2 p-2 hover:bg-gray-200 rounded-md cursor-pointer"
+                                                className="h-8 ml-2 p-2 hover:bg-blue-100 rounded-md cursor-pointer"
                                                 src="assets/qr-code.svg"
                                             />
                                         }
@@ -89,7 +89,7 @@ const LinkPreview = ({link}) => {
                                     >
                                         <div className="my-auto relative group">
                                             <QRCode 
-                                                value={`${process.env.REACT_APP_SERVER}/${linkData.short}`} 
+                                                value={`${process.env.REACT_APP_CLIENT}/${linkData.short}`}
                                                 id={`qrCode_${linkData._id}`} includeMargin={true} 
                                                 size={192} 
                                                 bgColor="#f9fafb"
@@ -119,7 +119,7 @@ const LinkPreview = ({link}) => {
                     </div>
                 )
                 : (
-                    <LinkForm submitButtonText="Update" onSubmit={onUpdateLink} values={link} />
+                    <LinkForm submitButtonText="Update" onSubmit={onUpdateLink} onCancel={setIsContentEditable} values={link} />
                 )
             }
         </div>

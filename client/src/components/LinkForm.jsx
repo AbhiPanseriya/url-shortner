@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { http } from '../util/axios';
 import { useDebounce } from 'use-debounce';
 
-const LinkForm = ({submitButtonText, onSubmit, values = {}}) => {
+const LinkForm = ({ submitButtonText, onSubmit, onCancel, values = {} }) => {
     const [title, setTitle] = useState(values.title || '');
 
     const [url, setUrl] = useState(values.url || '');
@@ -14,7 +14,7 @@ const LinkForm = ({submitButtonText, onSubmit, values = {}}) => {
 
     const [description, setDescription] = useState(values.description || '');
     
-    const serverUrl = `${process.env.REACT_APP_SERVER.split('//')[1]}/`;
+    const serverUrl = `${process.env.REACT_APP_CLIENT.split('//')[1]}/`;
 
     useEffect(async () => {
         if(short == null) return;
@@ -53,7 +53,7 @@ const LinkForm = ({submitButtonText, onSubmit, values = {}}) => {
                             {serverUrl}
                         </div>
                         <input 
-                            className="outline-none bg-gray-100 p-2" 
+                            className="outline-none bg-gray-100 p-2 w-full"
                             placeholder="generatedLink" 
                             type="text"
                             required
@@ -86,13 +86,22 @@ const LinkForm = ({submitButtonText, onSubmit, values = {}}) => {
                     <div className="w-32 ml-2 hidden md:block">
 
                     </div>
-                    <button 
-                        className="btn flex-grow"
-                        type="submit"
-                        onClick={(e) => onSubmitClicked(e)}
-                    >
-                        {submitButtonText}
-                    </button>
+                    <div className="flex flex-grow">
+                        <button
+                            className="btn flex-grow mr-2"
+                            type="submit"
+                            onClick={(e) => onSubmitClicked(e)}
+                        >
+                            {submitButtonText}
+                        </button>
+                        <button
+                            className="btn hover:bg-red-100 hover:text-red-500 flex-grow ml-2"
+                            type="button"
+                            onClick={(e) => onCancel(false)}
+                        >
+                            cancel
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

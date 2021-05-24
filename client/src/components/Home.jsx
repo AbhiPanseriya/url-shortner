@@ -4,11 +4,12 @@ import CreateUrl from './CreateUrl';
 import DataTable from './DataTable';
 
 const Home = () => {
+    const [isCreateUrlClicked, setIsCreateUrlClicked] = useState(false);
 
     return (
         <div className="container m-auto">
-            <Header />
-            <CreateUrl />
+            <Header isCreateUrlClicked={isCreateUrlClicked} setIsCreateUrlClicked={setIsCreateUrlClicked} />
+            <CreateUrl isCreateUrlClicked={isCreateUrlClicked} setIsCreateUrlClicked={setIsCreateUrlClicked} />
             <DataTable />
         </div>
     );
