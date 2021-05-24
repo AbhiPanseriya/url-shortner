@@ -115,5 +115,5 @@ app.get('/:redirect', async (req, res) => {
 
     res.render('template', {redirectUrl: link.url});
 });
-app.listen(4000);
+app.listen(process.env.PORT || 4000);
 
