@@ -5,7 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="0;url=<%= redirectUrl %>" />
-    <title>Document</title>
+    <title>
+        <%= metadata?.title %>
+    </title>
+    <meta name="image" content="<%= metadata?.image %>" />
+    <meta name="canonical" content="<%= metadata?.canonical %>" />
+    <meta name="author" content="<%= metadata?.author %>" />
+    <meta name="description" content="<%= metadata?.description %>" />
+    <meta name="keyword" content="<%= metadata?.keywords %>" />
+    <meta name="source" content="<%= metadata?.source %>" />
+    <meta name="og:title" content="<%= metadata?.['og:title'] %>" />
+    <meta name="og:image" content="<%= metadata?.['og:image'] %>" />
+    <meta name="og:type" content="<%= metadata?.['og:type'] %>" />
+    <meta name="og:description" content="<%= metadata?.['og:description'] %>" />
 </head>
 <body>
     

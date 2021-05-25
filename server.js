@@ -106,14 +106,20 @@ app.get('/gu', authenticateToken, async (req, res) => {
 
 //redirect
 app.set('view engine', 'ejs')
+const urlMetadata = require('url-metadata')
 app.get('/:redirect', async (req, res) => {
     const link = await ShortUrl.findOne({short: req.params.redirect});
     if(link == null) return res.sendStatus(404); 
 
     link.clicks++;
     await link.save();
+    let metadata = {};
+    try {
+        metadata = await urlMetadata(link.url);
+    } catch (error) { }
+    res.render('template', { redirectUrl: link.url, metadata: metadata });
 
-    res.render('template', {redirectUrl: link.url});
+
 });
-app.listen(process.env.PORT || 4000);
+app.listen(process.env.PORT || 5000);
 
