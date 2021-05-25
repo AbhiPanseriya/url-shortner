@@ -1,7 +1,8 @@
-import { BrowserRouter, Switch, Route, Redirect, useParams } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Auth from './Auth/Auth';
-import Home from './components/Home'
+import Home from './components/Home';
 import PrivateRoute from './util/PrivateRoute';
+import RedirectUrl from './components/RedirectUrl';
 
 const App = () => {
 	require('dotenv').config()
@@ -11,7 +12,9 @@ const App = () => {
 			<BrowserRouter>
 				<Switch>
 					<Route path='/auth' exact component={Auth} />
-					<Route path='/:id' component={RedirectUrl} />
+					<Route path='/:id' >
+						<RedirectUrl />
+					</Route>
 					<PrivateRoute path="/">
               			<Home />
 					</PrivateRoute>
@@ -19,14 +22,6 @@ const App = () => {
 			</BrowserRouter>
 		</div>
 	);
-}
-
-const RedirectUrl = () => {
-	const { id } = useParams();
-	const link = document.createElement('a');
-	link.href = `${process.env.REACT_APP_SERVER}/${id}`;
-	link.click();
-	return '';
 }
 
 export default App;

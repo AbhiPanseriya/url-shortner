@@ -13,7 +13,7 @@ const Header = ({ isCreateUrlClicked, setIsCreateUrlClicked }) => {
                 {
                     !isCreateUrlClicked && (
                         <button
-                            className="btn bg-white mr-2 py-1 px-2"
+                            className="btn shadow-none bg-white mr-2 py-1 px-2"
                             onClick={(e) => setIsCreateUrlClicked(true)}
                         >
                             {/* <span>create</span> */}
