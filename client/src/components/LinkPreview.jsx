@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { http } from "../util/axios";
 import LinkForm from './LinkForm';
+import Moment from 'moment';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
@@ -114,7 +115,7 @@ const LinkPreview = ({link}) => {
                                 </div>
                                 <span className="text-sm text-gray-500 uppercase"> Total Clicks </span>
                             </div>
-                            <div className="text-gray-500 capitalize text-sm sm:text-right">created at {new Date(linkData.createdAt).toLocaleString()}</div>
+                            <div className="text-gray-500 capitalize text-sm sm:text-right">created {Moment(linkData.createdAt).fromNow()}</div>
                         </div>
                     </div>
                 )
