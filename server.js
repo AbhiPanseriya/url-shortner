@@ -100,7 +100,9 @@ app.post('/uu', authenticateToken, async (req, res) => {
 //get url
 app.get('/gu', authenticateToken, async (req, res) => {
     const data = await ShortUrl.find({ user: {name: req.user.name, email: req.user.email}} ).sort({'createdAt': -1});
-
+    data.forEach(link => {
+        link.createdAt = link.createdAt.toISOString();
+    });
     return res.send(data);
 });
 
