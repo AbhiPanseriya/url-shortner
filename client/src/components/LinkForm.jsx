@@ -2,15 +2,17 @@ import { useEffect, useState } from "react"
 import { nanoid } from 'nanoid';
 import { http } from '../util/axios';
 import { useDebounce } from 'use-debounce';
+import { isURL } from 'validator';
 
 const LinkForm = ({ submitButtonText, onSubmit, onCancel, values = {} }) => {
     const [title, setTitle] = useState(values.title || '');
 
     const [url, setUrl] = useState(values.url || '');
+    const [isUrlValid, setIsUrlValid] = useState(null);
 
     const [short, setShort] = useState(values.short || nanoid(6));
     const [debouncedGeneratedUrl] = useDebounce(short, 1000);
-    const [isGeneratedUrlValid, setIsGeneratedUrlValid] = useState(false);
+    const [isGeneratedUrlValid, setIsGeneratedUrlValid] = useState(null);
 
     const [description, setDescription] = useState(values.description || '');
     
@@ -40,17 +42,20 @@ const LinkForm = ({ submitButtonText, onSubmit, onCancel, values = {} }) => {
                 <label className="label">
                     <span className="label-text">Link To Shorten<span className="text-red-600">*</span>:</span>
                     <input 
-                        className="form-control" 
+                        className={`form-control border ${(isUrlValid != null) && (isUrlValid ? ' border-green-500' : 'border-red-500')}`}
                         type="text"
                         value={url}
-                        onChange={e => setUrl(e.target.value)}
+                        onChange={e => {
+                            setUrl(e.target.value);
+                            setIsUrlValid(isURL(url));
+                        }}
                     />
                 </label>
                 <label className="label">
                     <span className="label-text">Shortened Link<span className="text-red-600">*</span>:</span>
-                    <div className={`form-control flex items-center p-0 rounded-md overflow-auto border ${isGeneratedUrlValid ? ' border-green-500' : 'border-red-500'}`}>
+                    <div className={`form-control flex items-center p-0 rounded-md overflow-auto border ${(isGeneratedUrlValid != null) && (isGeneratedUrlValid ? ' border-green-500' : 'border-red-500')}`}>
                         <div className="bg-gray-200 p-2">
-                            {serverUrl}
+                            {`${process.env.REACT_APP_CLIENT.split('//')[1]}/`}
                         </div>
                         <input 
                             className="outline-none bg-gray-100 p-2 w-full"
