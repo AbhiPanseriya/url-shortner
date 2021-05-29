@@ -94,12 +94,61 @@ app.post('/uu', authenticateToken, async (req, res) => {
     const response = await ShortUrl.findOne({
         _id: req.body._id
     });
-    res.send(response);
+    res.send(response); nv
 
 });
 //get url
 app.get('/gu', authenticateToken, async (req, res) => {
-    const data = await ShortUrl.find({ user: {name: req.user.name, email: req.user.email}} ).sort({'createdAt': -1});
+    const query = new RegExp(req.query.q || '', 'i', 'g');
+    const page = req.query.page;
+    const pageSize = 5;
+
+    let data;
+    if (!req.query.q) {
+        data = await ShortUrl.find({
+            user: {
+                name: req.user.name,
+                email: req.user.email
+            },
+        })
+            .sort({ 'createdAt': -1 })
+            .skip(page * pageSize)
+            .limit(pageSize);
+    } else {
+        data = await ShortUrl.find({
+            user: {
+                name: req.user.name,
+                email: req.user.email
+            },
+            $or: [
+                {
+                    title: {
+                        $regex: query
+                    }
+                },
+                {
+                    url: {
+                        $regex: query
+                    }
+                },
+                {
+                    short: {
+                        $regex: query
+                    }
+                },
+                {
+                    description: {
+                        $regex: query
+                    }
+                }
+            ]
+        })
+            .sort({ 'createdAt': -1 })
+            .skip(page * pageSize)
+            .limit(pageSize);
+    }
+
+
     data.forEach(link => {
         link.createdAt = link.createdAt.toISOString();
     });

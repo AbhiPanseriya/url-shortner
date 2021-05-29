@@ -35,4 +35,5 @@ const shortUrlSchema = mongoose.Schema({
         default: new Date()
     }
 });
+shortUrlSchema.index({ title: 'text', url: 'text', short: 'text', description: 'text' })
 module.exports = mongoose.model('ShortUrl', shortUrlSchema);
