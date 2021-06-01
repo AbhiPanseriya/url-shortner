@@ -15,8 +15,6 @@ const LinkForm = ({ submitButtonText, onSubmit, onCancel, values = {} }) => {
     const [isGeneratedUrlValid, setIsGeneratedUrlValid] = useState(null);
 
     const [description, setDescription] = useState(values.description || '');
-    
-    const serverUrl = `${process.env.REACT_APP_CLIENT.split('//')[1]}/`;
 
     useEffect(async () => {
         if(short == null) return;
@@ -30,9 +28,14 @@ const LinkForm = ({ submitButtonText, onSubmit, onCancel, values = {} }) => {
 
     }, [debouncedGeneratedUrl]);
 
+    useEffect(() => {
+        if (!url && isUrlValid == null) return
+        setIsUrlValid(isURL(url));
+    }, [url])
+
     const onSubmitClicked = (e) => {
         e.preventDefault();
-        if(!isGeneratedUrlValid || !url) return;
+        if (!isGeneratedUrlValid || !isUrlValid) return;
         onSubmit(title, url, short, description);
     }
 
@@ -47,7 +50,6 @@ const LinkForm = ({ submitButtonText, onSubmit, onCancel, values = {} }) => {
                         value={url}
                         onChange={e => {
                             setUrl(e.target.value);
-                            setIsUrlValid(isURL(url));
                         }}
                     />
                 </label>
