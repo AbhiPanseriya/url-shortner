@@ -3,6 +3,7 @@ import Auth from './Auth/Auth';
 import Home from './components/Home';
 import PrivateRoute from './util/PrivateRoute';
 import RedirectUrl from './components/RedirectUrl';
+import Metatag from './util/Metatag';
 
 const App = () => {
 	require('dotenv').config()
@@ -16,6 +17,7 @@ const App = () => {
 						<RedirectUrl />
 					</Route>
 					<PrivateRoute path="/">
+						<Metatag />
               			<Home />
 					</PrivateRoute>
 				</Switch>

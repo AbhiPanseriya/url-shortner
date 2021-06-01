@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useCallback, useState } from 'react';
+import Metatag from '../util/Metatag';
 
 const RedirectUrl = () => {
     const { id } = useParams();
@@ -8,8 +9,12 @@ const RedirectUrl = () => {
         if (link == null) return;
         link.click();
     }, [])
-
-    return <a ref={redirectLink} href={href}></a>;
+    return (
+        <>
+            <Metatag />
+            <a ref={redirectLink} href={href}></a>
+        </>
+    )
 }
 
 export default RedirectUrl;

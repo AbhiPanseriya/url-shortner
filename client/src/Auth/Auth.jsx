@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import GoogleLogin from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 import { GoogleLogout } from 'react-google-login';
+import Metatag from '../util/Metatag';
 
 const Auth = () => {
     const history = useHistory();
@@ -25,6 +26,7 @@ const Auth = () => {
 
     return (
         <div className="h-screen w-screen flex items-center justify-center">
+            <Metatag />
             {
                 failureMessage ? failureMessage
                 : (
