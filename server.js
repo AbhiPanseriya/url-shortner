@@ -101,7 +101,7 @@ app.post('/uu', authenticateToken, async (req, res) => {
 app.get('/gu', authenticateToken, async (req, res) => {
     const query = new RegExp(req.query.q || '', 'i', 'g');
     const page = req.query.page;
-    const pageSize = 5;
+    const pageSize = 10;
 
     let data;
     if (!req.query.q) {
