@@ -31,9 +31,10 @@ const Metatag = () => {
     const { id } = useParams();
     console.log(id);
     const [metadata, setMetadata] = useState({});
-    urlMetadata(`${process.env.REACT_APP_SERVER}/${id}`).then(data => {
-        setMetadata(data);
-    })
+    if (id)
+        urlMetadata(`${process.env.REACT_APP_SERVER}/${id}`).then(data => {
+            setMetadata(data);
+        })
     return (
         <div>
             { (!id || id === 'auth') ? mainTags : (

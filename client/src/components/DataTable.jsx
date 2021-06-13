@@ -6,7 +6,7 @@ import { useDebounce } from 'use-debounce';
 import Skeleton from 'react-loading-skeleton';
 
 const DataTable = () => {
-    const pageSize = 5;
+    const pageSize = 10;
 
     const [page, setPage] = useState(0);
     const [data, setData] = useState([]);
@@ -60,10 +60,10 @@ const DataTable = () => {
 
     return (
         <div className="mt-4 rounded-md flex flex-col overflow-auto">
-            <div className='flex justify-center mx-3'>
+            <div className='self-center mx-3 w-4/5 lg:w-2/3'>
                 <input
                     type='text'
-                    className='form-control w-full max-w-2xl self-center mr-4 flex-grow'
+                    className='form-control w-full self-center flex-grow'
                     placeholder='Enter something to search'
                     value={query}
                     onChange={e => setQuery(e.target.value)}

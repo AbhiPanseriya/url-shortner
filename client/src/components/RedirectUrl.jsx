@@ -11,8 +11,14 @@ const RedirectUrl = () => {
     }, [])
     return (
         <>
-            <Metatag />
-            <a ref={redirectLink} href={href}></a>
+            {
+                id && (
+                    <>
+                        <Metatag />
+                        <a ref={redirectLink} href={href}></a>
+                    </>
+                )
+            }
         </>
     )
 }
