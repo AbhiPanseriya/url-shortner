@@ -14,6 +14,7 @@ const App = () => {
 				<Switch>
 					<Route path='/auth' exact component={Auth} />
 					<Route path='/:id' >
+						<Metatag />
 						<RedirectUrl />
 					</Route>
 					<PrivateRoute path="/">

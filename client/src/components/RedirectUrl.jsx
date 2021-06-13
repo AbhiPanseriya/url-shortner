@@ -7,20 +7,9 @@ const RedirectUrl = () => {
     const [href, setHref] = useState(`${process.env.REACT_APP_SERVER}/${id}`);
     const redirectLink = useCallback((link) => {
         if (link == null) return;
-        link.click();
+        // link.click();
     }, [])
-    return (
-        <>
-            {
-                id && (
-                    <>
-                        <Metatag />
-                        <a ref={redirectLink} href={href}></a>
-                    </>
-                )
-            }
-        </>
-    )
+    return (id && <a ref={redirectLink} href={href}></a>)
 }
 
 export default RedirectUrl;
